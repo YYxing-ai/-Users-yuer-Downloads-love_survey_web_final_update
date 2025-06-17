@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>恋爱问卷</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background-color: #fffef2;
+      margin: 0;
+      padding: 0;
+    }
+    #mainImg, #coverImg {
+      width: 250px;
+      margin: 20px;
+      background: none;
+    }
+    .button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yesBtn {
+      background-color: #f08080;
+    }
+    #noBtn {
+      background-color: #a9a9a9;
+    }
+    #message {
+      font-size: 20px;
+      margin-top: 20px;
+      color: #444;
+    }
+    #cover {
+      font-size: 26px;
+      padding-top: 50px;
+      height: 100vh;
+      background-color: #fff0f5;
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="262_1750201542.mp4" type="audio/mp4">
+    您的浏览器不支持音乐播放。
+  </audio>
+
+  <div id="cover">
+    <p><strong>你必须要认真回答！</strong></p>
+    <img id="coverImg" src="cover.jpg" alt="cover">
+    <br>
+    <button class="button" onclick="startSurvey()">开始</button>
+  </div>
+
+  <div id="survey" style="display:none;">
+    <h2>Do you like me?</h2>
+    <img id="mainImg" src="img1.jpg" alt="cute">
+    <div>
+      <button class="button" id="yesBtn">YES</button>
+      <button class="button" id="noBtn">NO</button>
+    </div>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const images = ["img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg"];
+    let noClickCount = 0;
+
+    const mainImg = document.getElementById("mainImg");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+
+    function startSurvey() {
+      document.getElementById("cover").style.display = "none";
+      document.getElementById("survey").style.display = "block";
+    }
+
+    noBtn.addEventListener("click", () => {
+      noClickCount++;
+      if (noClickCount < 5) {
+        mainImg.src = images[noClickCount];
+        yesBtn.style.transform = `scale(${1 + noClickCount * 0.2})`;
+        noBtn.style.transform = `scale(${1 - noClickCount * 0.1})`;
+      } else {
+        mainImg.src = "img7.jpg";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+        message.innerText = "好吧，那你之后也要开开心心的哦~";
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      mainImg.src = "img6.jpg";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+      message.innerText = "这个世界好像少了一个爱你的人~所以我出现啦";
+    });
+  </script>
+</body>
+</html>
